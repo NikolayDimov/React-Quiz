@@ -1,10 +1,25 @@
-import DateCounter from "./DateCounter";
+import DateCounter from "./Components/DateCounter";
+import { AppContainer, GlobalStyle, Root } from "./App.styled";
+import Header from "./Components/Header";
+import Main from "./Components/Main";
 
 function App() {
     return (
-        <div>
+        <Root>
+            <GlobalStyle />
+            <AppContainer>
+                <Header />
+
+                <Main>
+                    <p>1/15</p>
+                    <p>Question?</p>
+                </Main>
+            </AppContainer>
             <DateCounter />
-        </div>
+        </Root>
+        // <div>
+        //     <DateCounter />
+        // </div>
     );
 }
 
