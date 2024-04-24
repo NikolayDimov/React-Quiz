@@ -9,6 +9,7 @@ import StartScreen from "./components/StartScreen/StartScreen";
 import ErrorComponent from "./components/ErrorComponent/ErrorComponent";
 import { Action, State } from "./App.static";
 import QuizQuestion from "./components/QuizSection/QuizQuestion";
+import NextButton from "./components/NextButton/NextButton";
 
 const initialState: State = {
     questions: [],
@@ -35,6 +36,9 @@ function reducer(state: State, action: Action): State {
                 answer: action.payload,
                 points: action.payload === question.correctOption ? state.points + question.points : state.points,
             };
+        case "nextQuestion":
+            return { ...state, index: state.index + 1, answer: null };
+
         default:
             throw new Error("Unknow action");
     }
@@ -62,7 +66,12 @@ function App() {
                     {status === "loading" && <Loader />}
                     {status === "error" && <ErrorComponent />}
                     {status === "ready" && <StartScreen numQuestions={numQuestions} dispatch={dispatch} />}
-                    {status === "active" && <QuizQuestion question={questions[index]} dispatch={dispatch} answer={answer} />}
+                    {status === "active" && (
+                        <>
+                            <QuizQuestion question={questions[index]} dispatch={dispatch} answer={answer} />
+                            <NextButton dispatch={dispatch} answer={answer} />
+                        </>
+                    )}
                 </Main>
             </AppContainer>
         </Root>

@@ -17,6 +17,10 @@ export interface AnswerProps {
     payload: number;
 }
 
+export interface NextQuestionProps {
+    type: "nextQuestion";
+}
+
 export interface Question {
     question: string;
     options: string[];
@@ -33,4 +37,4 @@ export interface State {
     points: number;
 }
 
-export type Action = DataRecievedProps | DataFailedProps | StartProps | AnswerProps;
+export type Action = DataRecievedProps | DataFailedProps | StartProps | AnswerProps | NextQuestionProps;
