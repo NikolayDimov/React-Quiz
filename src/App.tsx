@@ -10,6 +10,7 @@ import ErrorComponent from "./components/ErrorComponent/ErrorComponent";
 import { Action, State } from "./App.static";
 import QuizQuestion from "./components/QuizSection/QuizQuestion";
 import NextButton from "./components/NextButton/NextButton";
+import Progress from "./components/Progress/Progress";
 
 const initialState: State = {
     questions: [],
@@ -45,9 +46,10 @@ function reducer(state: State, action: Action): State {
 }
 
 function App() {
-    const [{ questions, status, index, answer }, dispatch] = useReducer(reducer, initialState);
+    const [{ questions, status, index, answer, points }, dispatch] = useReducer(reducer, initialState);
 
     const numQuestions = questions.length;
+    const maxPossiblePoints = questions.reduce((prev, curr) => prev + curr.points, 0);
 
     useEffect(function () {
         fetch("http://localhost:9000/questions")
@@ -68,6 +70,13 @@ function App() {
                     {status === "ready" && <StartScreen numQuestions={numQuestions} dispatch={dispatch} />}
                     {status === "active" && (
                         <>
+                            <Progress
+                                index={index}
+                                numQuestions={numQuestions}
+                                points={points}
+                                maxPossiblePoints={maxPossiblePoints}
+                                answer={answer}
+                            />
                             <QuizQuestion question={questions[index]} dispatch={dispatch} answer={answer} />
                             <NextButton dispatch={dispatch} answer={answer} />
                         </>
