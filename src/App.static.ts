@@ -21,6 +21,10 @@ export interface NextQuestionProps {
     type: "nextQuestion";
 }
 
+export interface FinishProps {
+    type: "finish";
+}
+
 export interface Question {
     question: string;
     options: string[];
@@ -35,6 +39,7 @@ export interface State {
     index: number;
     answer: number | null;
     points: number;
+    highscore: number;
 }
 
-export type Action = DataRecievedProps | DataFailedProps | StartProps | AnswerProps | NextQuestionProps;
+export type Action = DataRecievedProps | DataFailedProps | StartProps | AnswerProps | NextQuestionProps | FinishProps;

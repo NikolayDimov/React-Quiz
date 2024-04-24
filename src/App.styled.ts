@@ -44,10 +44,6 @@ export const Header = styled.header`
     justify-content: space-between;
 `;
 
-export const Error = styled.div`
-    /* Error styles */
-`;
-
 export const StyledImg = styled.img`
     width: 14rem;
 `;

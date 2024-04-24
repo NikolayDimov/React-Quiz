@@ -1,12 +1,23 @@
 import { FinishProps } from "./FinishScreen.static";
+import { HighScore, Result } from "./FinishScreen.style";
 
-function FinishScreen({ points, maxPossiblePoints }: FinishProps) {
+function FinishScreen({ points, maxPossiblePoints, highscore }: FinishProps) {
     const percentage = (points / maxPossiblePoints) * 100;
 
+    let emoji;
+    if (percentage === 100) emoji = "🥇";
+    if (percentage >= 80 && percentage < 100) emoji = "🥈";
+    if (percentage >= 50 && percentage < 80) emoji = "🥉";
+    if (percentage >= 0 && percentage < 50) emoji = "🎖️";
+    if (percentage === 0) emoji = "👎";
+
     return (
-        <p>
-            You scored <strong>{points}</strong> out of {maxPossiblePoints} ({Math.ceil(percentage)})
-        </p>
+        <>
+            <Result>
+                <span>{emoji}</span> You scored <strong>{points}</strong> out of {maxPossiblePoints} ({Math.ceil(percentage)}%)
+            </Result>
+            <HighScore>(HighScore: {highscore} points)</HighScore>
+        </>
     );
 }
 
