@@ -1,8 +1,12 @@
-import DateCounter from "./Components/DateCounter";
+// import DateCounter from "./Components/DateCounter";
 import { AppContainer, GlobalStyle, Root } from "./App.styled";
 import Header from "./Components/Header";
 import Main from "./Components/Main";
 import { useEffect, useReducer } from "react";
+import Loader from "./Components/Loader";
+
+import StartScreen from "./Components/StartScreen";
+import ErrorComponent from "./Components/ErrorComponent";
 
 interface DataRecievedProps {
     type: "dataReceived";
@@ -44,13 +48,15 @@ function reducer(state: State, action: Action): State {
 }
 
 function App() {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+
+    const numQuestions = questions.length;
 
     useEffect(function () {
         fetch("http://localhost:9000/questions")
             .then((res) => res.json())
             .then((data) => dispatch({ type: "dataReceived", payload: data }))
-            .catch((error) => dispatch({ type: "dataFailed" }));
+            .catch((err) => dispatch({ type: "dataFailed" }));
     }, []);
 
     return (
@@ -60,11 +66,11 @@ function App() {
                 <Header />
 
                 <Main>
-                    <p>1/15</p>
-                    <p>Question?</p>
+                    {status === "loading" && <Loader />}
+                    {status === "error" && <ErrorComponent />}
+                    {status === "ready" && <StartScreen numQuestions={numQuestions} />}
                 </Main>
             </AppContainer>
-            <DateCounter />
         </Root>
         // <div>
         //     <DateCounter />
