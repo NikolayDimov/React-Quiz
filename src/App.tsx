@@ -1,39 +1,21 @@
 // import DateCounter from "./Components/DateCounter";
 import { AppContainer, GlobalStyle, Root } from "./App.styled";
-import Header from "./Components/Header";
-import Main from "./Components/Main";
+import Header from "./components/Header/Header";
+import Main from "./components/Main/Main";
 import { useEffect, useReducer } from "react";
-import Loader from "./Components/Loader";
+import Loader from "./components/Loader/Loader";
 
-import StartScreen from "./Components/StartScreen";
-import ErrorComponent from "./Components/ErrorComponent";
-
-interface DataRecievedProps {
-    type: "dataReceived";
-    payload: [];
-}
-
-interface DataFailedProps {
-    type: "dataFailed";
-    // payload: [];
-}
-
-interface Question {
-    question: string;
-}
-
-interface State {
-    questions: Question[];
-    status: string;
-}
-
-type Action = DataRecievedProps | DataFailedProps;
+import StartScreen from "./components/StartScreen/StartScreen";
+import ErrorComponent from "./components/ErrorComponent/ErrorComponent";
+import { Action, State } from "./App.static";
+import QuizQuestion from "./components/QuizSection/QuizQuestion";
 
 const initialState = {
     questions: [],
 
     // 'loading', 'error', 'ready', 'active', 'finished'
     status: "loading",
+    index: 0,
 };
 
 function reducer(state: State, action: Action): State {
@@ -42,13 +24,15 @@ function reducer(state: State, action: Action): State {
             return { ...state, questions: action.payload, status: "ready" };
         case "dataFailed":
             return { ...state, status: "error" };
+        case "start":
+            return { ...state, status: "active" };
         default:
             throw new Error("Unknow action");
     }
 }
 
 function App() {
-    const [{ questions, status }, dispatch] = useReducer(reducer, initialState);
+    const [{ questions, status, index }, dispatch] = useReducer(reducer, initialState);
 
     const numQuestions = questions.length;
 
@@ -56,7 +40,7 @@ function App() {
         fetch("http://localhost:9000/questions")
             .then((res) => res.json())
             .then((data) => dispatch({ type: "dataReceived", payload: data }))
-            .catch((err) => dispatch({ type: "dataFailed" }));
+            .catch((err) => dispatch({ type: "dataFailed", payload: err }));
     }, []);
 
     return (
@@ -68,7 +52,8 @@ function App() {
                 <Main>
                     {status === "loading" && <Loader />}
                     {status === "error" && <ErrorComponent />}
-                    {status === "ready" && <StartScreen numQuestions={numQuestions} />}
+                    {status === "ready" && <StartScreen numQuestions={numQuestions} dispatch={dispatch} />}
+                    {status === "active" && <QuizQuestion question={questions[index]} />}
                 </Main>
             </AppContainer>
         </Root>
