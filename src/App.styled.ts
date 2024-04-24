@@ -109,5 +109,3 @@ export const StyledButton = styled.button`
         color: var(--color-darkest);
     }
 `;
-
-/* Continue defining styled components for each CSS block */

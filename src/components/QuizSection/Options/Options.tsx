@@ -1,12 +1,21 @@
-import { Question } from "../../../App.static";
 import { StyledButton } from "../../../App.styled";
+import { QuizQuestionProps } from "../QuizQuestion.static";
 import { OptionDiv } from "./Options.style";
 
-function Options({ question }: { question: Question }) {
+function Options({ question, dispatch, answer }: QuizQuestionProps) {
+    const hasAnswered = answer !== null;
+
     return (
         <OptionDiv>
-            {question.options.map((option) => (
-                <StyledButton className="btn-option" key={option}>
+            {question.options.map((option, index) => (
+                <StyledButton
+                    className={`btn-option ${index === answer ? "answer" : ""} ${
+                        hasAnswered ? (index === question.correctOption ? "correct" : "wrong") : ""
+                    }`}
+                    key={option}
+                    disabled={hasAnswered}
+                    onClick={() => dispatch({ type: "answer", payload: index })}
+                >
                     {option}
                 </StyledButton>
             ))}
