@@ -1,29 +1,6 @@
 import { ChangeEvent, useReducer } from "react";
-
-interface IncrementDecrementAction {
-    type: "inc" | "dec";
-}
-
-interface SetCountAction {
-    type: "setCount";
-    payload: number;
-}
-
-interface SetStepAction {
-    type: "setStep";
-    payload: number;
-}
-
-interface ResetAction {
-    type: "reset";
-}
-
-interface State {
-    count: number;
-    step: number;
-}
-
-type Action = IncrementDecrementAction | SetCountAction | SetStepAction | ResetAction;
+import { State } from "./DateCounter.static";
+import { Action } from "./DateCounter.static";
 
 const initialState = { count: 0, step: 1 };
 

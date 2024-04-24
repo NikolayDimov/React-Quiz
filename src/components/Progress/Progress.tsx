@@ -1,12 +1,5 @@
+import { ProgressProps } from "./Progress.static";
 import { ProgressWrapper } from "./Progress.style";
-
-interface ProgressProps {
-    index: number;
-    numQuestions: number;
-    points: number;
-    maxPossiblePoints: number;
-    answer: number | null;
-}
 
 function Progress({ index, numQuestions, points, maxPossiblePoints, answer }: ProgressProps) {
     return (
