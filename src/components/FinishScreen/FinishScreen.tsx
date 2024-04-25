@@ -1,7 +1,8 @@
+import { StyledButton } from "../../App.styled";
 import { FinishProps } from "./FinishScreen.static";
 import { HighScore, Result } from "./FinishScreen.style";
 
-function FinishScreen({ points, maxPossiblePoints, highscore }: FinishProps) {
+function FinishScreen({ points, maxPossiblePoints, highscore, dispatch }: FinishProps) {
     const percentage = (points / maxPossiblePoints) * 100;
 
     let emoji;
@@ -17,6 +18,9 @@ function FinishScreen({ points, maxPossiblePoints, highscore }: FinishProps) {
                 <span>{emoji}</span> You scored <strong>{points}</strong> out of {maxPossiblePoints} ({Math.ceil(percentage)}%)
             </Result>
             <HighScore>(HighScore: {highscore} points)</HighScore>
+            <StyledButton className="btn-ui" onClick={() => dispatch({ type: "restart" })}>
+                Restart Quiz
+            </StyledButton>
         </>
     );
 }

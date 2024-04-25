@@ -25,6 +25,10 @@ export interface FinishProps {
     type: "finish";
 }
 
+export interface RestartProps {
+    type: "restart";
+}
+
 export interface Question {
     question: string;
     options: string[];
@@ -42,4 +46,4 @@ export interface State {
     highscore: number;
 }
 
-export type Action = DataRecievedProps | DataFailedProps | StartProps | AnswerProps | NextQuestionProps | FinishProps;
+export type Action = DataRecievedProps | DataFailedProps | StartProps | AnswerProps | NextQuestionProps | FinishProps | RestartProps;

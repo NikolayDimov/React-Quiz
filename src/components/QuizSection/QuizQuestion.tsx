@@ -2,7 +2,7 @@ import Options from "./Options/Options";
 import { QuizQuestionProps } from "./QuizQuestion.static";
 
 function QuizQuestion({ question, dispatch, answer }: QuizQuestionProps) {
-    console.log(question);
+    // console.log(question);
 
     return (
         <div>
