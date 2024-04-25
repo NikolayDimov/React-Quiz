@@ -29,6 +29,10 @@ export interface RestartProps {
     type: "restart";
 }
 
+export interface ClockTickProps {
+    type: "clockTick";
+}
+
 export interface Question {
     question: string;
     options: string[];
@@ -44,6 +48,15 @@ export interface State {
     answer: number | null;
     points: number;
     highscore: number;
+    secondsRemaining: number | null;
 }
 
-export type Action = DataRecievedProps | DataFailedProps | StartProps | AnswerProps | NextQuestionProps | FinishProps | RestartProps;
+export type Action =
+    | DataRecievedProps
+    | DataFailedProps
+    | StartProps
+    | AnswerProps
+    | NextQuestionProps
+    | FinishProps
+    | RestartProps
+    | ClockTickProps;
