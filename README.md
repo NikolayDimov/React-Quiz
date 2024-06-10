@@ -51,6 +51,6 @@ This is a React application built with Vite that serves a quiz and fetches quest
     ```
     Open your browser and go to `http://localhost:5173` to see the app in action.
 
-![App Example Image](public/733C2BDF-5A9B-46C1-BC0A-388F18DF1E31_1_201_a.jpeg);
+![App Example Image](public/733C2BDF-5A9B-46C1-BC0A-388F18DF1E31_1_201_a.jpeg)
 
-![App Example Image](public/F2091B26-8211-4E32-A03C-C525674CBCC7_1_201_a.jpeg);
+![App Example Image](public/F2091B26-8211-4E32-A03C-C525674CBCC7_1_201_a.jpeg)
